@@ -2,6 +2,6 @@
 
 # `0xfaeda`
 
-/ˈfedə/
+/ˈfādə/
 
 Farming game.

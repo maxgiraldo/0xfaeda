@@ -11,18 +11,18 @@
 
 .grass {
   cursor:
-    url(/public/Hoe.png),
+    url(/Hoe.png),
     pointer;
 }
 
 .soil {
   cursor:
-    url(/public/Corn.png),
+    url(/Corn.png),
     pointer;
 }
 
 .seeded {
   cursor:
-    url(/public/WaterCan.png),
+    url(/WaterCan.png),
     pointer;
 }

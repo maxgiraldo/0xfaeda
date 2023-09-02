@@ -11,7 +11,7 @@ enum TileType {
 }
 
 #[derive(Component, Drop, SerdeLen, Serde)]
-struct Square {
+struct Tile {
     #[key]
     player: ContractAddress,
     #[key]
@@ -22,10 +22,10 @@ struct Square {
 }
 
 #[derive(Component, Copy, Drop, Serde, SerdeLen)]
-struct Moves {
+struct BankAccount {
     #[key]
     player: ContractAddress,
-    remaining: u8,
+    balance: u32,
 }
 
 impl PieceOptionSerdeLen of dojo::SerdeLen<Option<TileType>> {
@@ -39,8 +39,8 @@ impl PieceOptionPrintTrait of PrintTrait<Option<TileType>> {
     #[inline(always)]
     fn print(self: Option<TileType>) {
         match self {
-            Option::Some(piece_type) => {
-                piece_type.print();
+            Option::Some(tile_type) => {
+                tile_type.print();
             },
             Option::None(_) => {
                 'None'.print();

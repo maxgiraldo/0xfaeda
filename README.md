@@ -4,4 +4,4 @@
 
 /ˈfādə/
 
-Farming game.
+A fully on chain farming game.

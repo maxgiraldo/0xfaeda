@@ -42,3 +42,10 @@ struct Order {
     price: u64,
     commodity_type: CommodityType,
 }
+
+#[derive(Component, Copy, Drop, Serde, SerdeLen)]
+struct OrderCounter {
+    #[key]
+    player: ContractAddress,
+    count: u32,
+}

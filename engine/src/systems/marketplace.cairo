@@ -6,7 +6,7 @@ mod fill_order {
     use dojo::world::Context;
     use debug::PrintTrait;
 
-    use faeda::components::{BankAccount, Order};
+    use faeda::components::{BankAccount, Order, OrderCounter};
 
     fn execute(ctx: Context, order_id: u32) {
         let order = get!(ctx.world, (order_id, ctx.origin), (Order));
@@ -15,6 +15,37 @@ mod fill_order {
         bank_account.balance += order.price * order.quantity;
 
         set!(ctx.world, (bank_account));
+
+        return ();
+    }
+}
+
+#[system]
+mod create_order {
+    use traits::Into;
+    use dojo::world::Context;
+    use faeda::components::{Order, OrderCounter, CommodityType};
+
+    fn execute(ctx: Context, price: u64, quantity: u64) {
+        let order_counter = get!(ctx.world, ctx.origin, (OrderCounter));
+
+        set!(
+            ctx.world,
+            (
+                Order {
+                    entity_id: order_counter.count + 1,
+                    player: ctx.origin,
+                    quantity: quantity,
+                    price: price,
+                    // TODO: support more crops
+                    commodity_type: CommodityType::Corn(()),
+                },
+                OrderCounter {
+                    player: ctx.origin,
+                    count: order_counter.count + 1,
+                }
+            )
+        );
 
         return ();
     }
@@ -45,11 +76,11 @@ mod tests {
 
         //systems
         let mut systems = array::ArrayTrait::new();
-        // systems.append(initiate_system::TEST_CLASS_HASH);
+        systems.append(initiate_system::TEST_CLASS_HASH);
         systems.append(fill_order::TEST_CLASS_HASH);
         let world = spawn_test_world(components, systems);
 
-        // world.execute('initiate_system', array![]);
+        world.execute('initiate_system', array![]);
 
         world
     }

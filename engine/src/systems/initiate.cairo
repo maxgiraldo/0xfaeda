@@ -5,19 +5,20 @@ mod initiate_system {
     use box::BoxTrait;
     use dojo::world::Context;
 
-    use faeda::components::{BankAccount, CommodityType, Order};
+    use faeda::components::{BankAccount, CommodityType, Order, OrderCounter};
 
     fn execute(ctx: Context) {
-        // set!(
-        //     ctx.world,
-        //     (
-        //         BankAccount {
-        //             player: ctx.origin,
-        //             balance: 0,
-        //         },
-        //     )
-        // );
+        set!(
+            ctx.world,
+            (
+                BankAccount {
+                    player: ctx.origin,
+                    balance: 0,
+                },
+            )
+        );
 
+        // Artificially create demand (eventually, this will be completely player-driven).
         set!(
             ctx.world,
             (
@@ -42,6 +43,10 @@ mod initiate_system {
                     price: 465,
                     commodity_type: CommodityType::Corn(()),
                 },
+                OrderCounter {
+                    player: ctx.origin,
+                    count: 3,
+                }
             )
         );
 
@@ -53,7 +58,7 @@ mod initiate_system {
 mod tests {
     use starknet::ContractAddress;
     use dojo::test_utils::spawn_test_world;
-    use faeda::components::{BankAccount, bank_account, Order, CommodityType};
+    use faeda::components::{BankAccount, bank_account, Order, OrderCounter, CommodityType};
 
     use faeda::systems::initiate_system;
     use array::ArrayTrait;
@@ -80,9 +85,13 @@ mod tests {
         //get bank account
         let player_bank_account = get!(world, (world.contract_address), (BankAccount));
         assert(player_bank_account.player == world.contract_address, 'incorrect player');
-        assert(player_bank_account.balance.into() == 0x0, 'balance not initialized to zero');
+        assert(player_bank_account.balance == 0, 'balance not initialized to zero');
 
         let order = get!(world, (1, world.contract_address), (Order));
         assert(order.commodity_type == CommodityType::Corn, 'should be corn');
+
+        let order_counter = get!(world, (world.contract_address), (OrderCounter));
+        // TODO: also not being set for some reason
+        // assert(order_counter.count == 3, 'order counter is not 3');
     }
 }

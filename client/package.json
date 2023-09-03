@@ -9,8 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dojoengine/core": "^0.0.17",
+    "@dojoengine/create-burner": "^0.0.15",
     "@preact/signals": "^1.2.1",
-    "preact": "^10.16.0"
+    "graphql": "^16.8.0",
+    "graphql-request": "^6.1.0",
+    "preact": "^10.16.0",
+    "starknet": "^5.14.1"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",

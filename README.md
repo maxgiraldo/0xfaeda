@@ -5,3 +5,9 @@
 /ˈfādə/
 
 A fully on chain farming game.
+
+## Getting Started
+
+To start the client, run:
+
+`yarn && yarn dev`

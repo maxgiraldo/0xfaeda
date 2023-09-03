@@ -5,15 +5,42 @@ mod initiate_system {
     use box::BoxTrait;
     use dojo::world::Context;
 
-    use faeda::components::{BankAccount};
+    use faeda::components::{BankAccount, CommodityType, Order};
 
     fn execute(ctx: Context) {
+        // set!(
+        //     ctx.world,
+        //     (
+        //         BankAccount {
+        //             player: ctx.origin,
+        //             balance: 0,
+        //         },
+        //     )
+        // );
+
         set!(
             ctx.world,
             (
-                BankAccount {
+                Order {
+                    entity_id: 1,
                     player: ctx.origin,
-                    balance: 0,
+                    quantity: 9,
+                    price: 240,
+                    commodity_type: CommodityType::Corn(()),
+                },
+                Order {
+                    entity_id: 2,
+                    player: ctx.origin,
+                    quantity: 4,
+                    price: 390,
+                    commodity_type: CommodityType::Corn(()),
+                },
+                Order {
+                    entity_id: 3,
+                    player: ctx.origin,
+                    quantity: 1,
+                    price: 465,
+                    commodity_type: CommodityType::Corn(()),
                 },
             )
         );
@@ -26,7 +53,7 @@ mod initiate_system {
 mod tests {
     use starknet::ContractAddress;
     use dojo::test_utils::spawn_test_world;
-    use faeda::components::{BankAccount, bank_account};
+    use faeda::components::{BankAccount, bank_account, Order, CommodityType};
 
     use faeda::systems::initiate_system;
     use array::ArrayTrait;
@@ -54,5 +81,8 @@ mod tests {
         let player_bank_account = get!(world, (world.contract_address), (BankAccount));
         assert(player_bank_account.player == world.contract_address, 'incorrect player');
         assert(player_bank_account.balance.into() == 0x0, 'balance not initialized to zero');
+
+        let order = get!(world, (1, world.contract_address), (Order));
+        assert(order.commodity_type == CommodityType::Corn, 'should be corn');
     }
 }

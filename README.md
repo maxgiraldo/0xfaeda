@@ -8,10 +8,27 @@ A fully on chain farming game.
 
 ## Getting Started
 
+Unfortunately, wasn't able to fully connect the client to engine, i.e. initialize world, seed data, etc, so you'd have to do that manually. I was only able to query Torii RPC server for some data.
+
+### Client
+
 To start the client, run:
 
 `yarn && yarn dev`
 
+### Engine
+
+`sozo auth writer BankAccount initiate`
+`sozo auth writer BankAccount marketplace`
+`sozo execute initiate_system`
+
+#### Create more orders
+
+`sozo execute create_order --calldata 400,5`
+
+#### Fill orders
+
+`sozo execute fill_order --calldata 1`
 
 ## Game Objectives (prototype)
 

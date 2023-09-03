@@ -5,7 +5,7 @@ mod initiate_system {
     use box::BoxTrait;
     use dojo::world::Context;
 
-    use faeda::components::{BankAccount, CommodityType, Order, OrderCounter};
+    use faeda::components::{BankAccount, Order, OrderCounter};
 
     fn execute(ctx: Context) {
         set!(
@@ -27,21 +27,21 @@ mod initiate_system {
                     player: ctx.origin,
                     quantity: 9,
                     price: 240,
-                    commodity_type: CommodityType::Corn(()),
+                    // commodity_type: CommodityType::Corn(()),
                 },
                 Order {
                     entity_id: 2,
                     player: ctx.origin,
                     quantity: 4,
                     price: 390,
-                    commodity_type: CommodityType::Corn(()),
+                    // commodity_type: CommodityType::Corn(()),
                 },
                 Order {
                     entity_id: 3,
                     player: ctx.origin,
                     quantity: 1,
                     price: 465,
-                    commodity_type: CommodityType::Corn(()),
+                    // commodity_type: CommodityType::Corn(()),
                 },
                 OrderCounter {
                     player: ctx.origin,
@@ -58,7 +58,7 @@ mod initiate_system {
 mod tests {
     use starknet::ContractAddress;
     use dojo::test_utils::spawn_test_world;
-    use faeda::components::{BankAccount, bank_account, Order, OrderCounter, CommodityType};
+    use faeda::components::{BankAccount, bank_account, Order, OrderCounter};
 
     use faeda::systems::initiate_system;
     use array::ArrayTrait;
@@ -88,7 +88,7 @@ mod tests {
         assert(player_bank_account.balance == 0, 'balance not initialized to zero');
 
         let order = get!(world, (1, world.contract_address), (Order));
-        assert(order.commodity_type == CommodityType::Corn, 'should be corn');
+        // assert(order.commodity_type == CommodityType::Corn, 'should be corn');
 
         let order_counter = get!(world, (world.contract_address), (OrderCounter));
         // TODO: also not being set for some reason

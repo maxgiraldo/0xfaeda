@@ -9,28 +9,29 @@ struct BankAccount {
     balance: u64, // use u128 fixed point?
 }
 
-#[derive(Serde, Drop, Copy, PartialEq)]
-enum CommodityType {
-    Corn,
-}
+// This is causing Torii to throw `Error: Unknown member type CommodityType`
+// #[derive(Serde, Drop, Copy, PartialEq)]
+// enum CommodityType {
+//     Corn,
+// }
 
-impl CommodityTypeSerdeLen of dojo::SerdeLen<CommodityType> {
-    #[inline(always)]
-    fn len() -> usize {
-        1
-    }
-}
+// impl CommodityTypeSerdeLen of dojo::SerdeLen<CommodityType> {
+//     #[inline(always)]
+//     fn len() -> usize {
+//         1
+//     }
+// }
 
-impl CommodityTypePrintTrait of PrintTrait<CommodityType> {
-    #[inline(always)]
-    fn print(self: CommodityType) {
-        match self {
-            CommodityType::Corn(_) => {
-                'Corn'.print();
-            },
-        }
-    }
-}
+// impl CommodityTypePrintTrait of PrintTrait<CommodityType> {
+//     #[inline(always)]
+//     fn print(self: CommodityType) {
+//         match self {
+//             CommodityType::Corn(_) => {
+//                 'Corn'.print();
+//             },
+//         }
+//     }
+// }
 
 #[derive(Component, Copy, Drop, Serde, SerdeLen)]
 struct Order {
@@ -40,7 +41,7 @@ struct Order {
     player: ContractAddress,
     quantity: u64,
     price: u64,
-    commodity_type: CommodityType,
+    // commodity_type: CommodityType,
 }
 
 #[derive(Component, Copy, Drop, Serde, SerdeLen)]

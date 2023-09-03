@@ -488,7 +488,7 @@ export function App() {
         <div class="game-info">
           <p>
             Land owner: <strong>{playerBankAccount.value.player ? playerBankAccount.value.player.slice(0, 9) : '?'}</strong>,
-            Bank Account Balance: <strong>{ playerBankAccount.value.balance }</strong>
+            Bank Account Balance: <strong>${ playerBankAccount.value.balance / 100.0 }</strong>
           </p>
         </div>
       </div>

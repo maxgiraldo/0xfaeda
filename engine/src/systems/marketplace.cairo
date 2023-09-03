@@ -24,7 +24,7 @@ mod fill_order {
 mod create_order {
     use traits::Into;
     use dojo::world::Context;
-    use faeda::components::{Order, OrderCounter, CommodityType};
+    use faeda::components::{Order, OrderCounter};
 
     fn execute(ctx: Context, price: u64, quantity: u64) {
         let order_counter = get!(ctx.world, ctx.origin, (OrderCounter));
@@ -37,8 +37,6 @@ mod create_order {
                     player: ctx.origin,
                     quantity: quantity,
                     price: price,
-                    // TODO: support more crops
-                    commodity_type: CommodityType::Corn(()),
                 },
                 OrderCounter {
                     player: ctx.origin,
@@ -55,7 +53,7 @@ mod create_order {
 mod tests {
     use starknet::ContractAddress;
     use dojo::test_utils::spawn_test_world;
-    use faeda::components::{BankAccount, bank_account, Order, CommodityType};
+    use faeda::components::{BankAccount, bank_account, Order};
 
     use faeda::systems::initiate_system;
     use faeda::systems::fill_order;

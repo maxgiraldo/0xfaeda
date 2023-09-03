@@ -19,7 +19,9 @@ To start the client, run:
 ### Engine
 
 `sozo auth writer BankAccount initiate`
+
 `sozo auth writer BankAccount marketplace`
+
 `sozo execute initiate_system`
 
 #### Create more orders

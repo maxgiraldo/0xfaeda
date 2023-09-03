@@ -2,27 +2,27 @@ import { signal, Signal } from '@preact/signals'
 import { useBankAccount } from './hooks/useBankAccount'
 
 // TODO: sprite sheet
-import frame from '/Frame.png'
-import grass01 from '/Grass01.png'
-import grass02 from '/Grass02.png'
-import grass03 from '/Grass03.png'
-import grass04 from '/Grass04.png'
-import grass05 from '/Grass05.png'
-import grass06 from '/Grass06.png'
-import grass07 from '/Grass07.png'
-import grass08 from '/Grass08.png'
-import grass09 from '/Grass09.png'
-import dirt00 from '/Dirt00.png'
-import seeds1 from '/Seeds01.png'
-import seeds2 from '/Seeds02.png'
-import seeds3 from '/Seeds03.png'
-import seeds4 from '/Seeds04.png'
-import watered00 from '/Watered00.png'
-import corn0 from '/Corn0.png'
-import corn25 from '/Corn25.png'
-import corn50 from '/Corn50.png'
-import corn75 from '/Corn75.png'
-import corn100 from '/Corn100.png'
+import frame from './assets/Frame.png'
+import grass01 from './assets/Grass01.png'
+import grass02 from './assets/Grass02.png'
+import grass03 from './assets/Grass03.png'
+import grass04 from './assets/Grass04.png'
+import grass05 from './assets/Grass05.png'
+import grass06 from './assets/Grass06.png'
+import grass07 from './assets/Grass07.png'
+import grass08 from './assets/Grass08.png'
+import grass09 from './assets/Grass09.png'
+import dirt00 from './assets/Dirt00.png'
+import seeds1 from './assets/Seeds01.png'
+import seeds2 from './assets/Seeds02.png'
+import seeds3 from './assets/Seeds03.png'
+import seeds4 from './assets/Seeds04.png'
+import watered00 from './assets/Watered00.png'
+import corn0 from './assets/Corn0.png'
+import corn25 from './assets/Corn25.png'
+import corn50 from './assets/Corn50.png'
+import corn75 from './assets/Corn75.png'
+import corn100 from './assets/Corn100.png'
 
 import './app.css'
 
@@ -331,6 +331,43 @@ const setTileSrc = (tileSrc: string) => {
   if (tileSrc === 'Dirt09Plant') {
     tile09.value = 'Watered09Plant'
   }
+
+  if (tileSrc === 'Bloomed01Plant') {
+    tile01.value = 'Grass01'
+    plant01.value = 0
+  }
+  if (tileSrc === 'Bloomed02Plant') {
+    tile02.value = 'Grass02'
+    plant02.value = 0
+  }
+  if (tileSrc === 'Bloomed03Plant') {
+    tile03.value = 'Grass03'
+    plant03.value = 0
+  }
+  if (tileSrc === 'Bloomed04Plant') {
+    tile04.value = 'Grass04'
+    plant04.value = 0
+  }
+  if (tileSrc === 'Bloomed05Plant') {
+    tile05.value = 'Grass05'
+    plant05.value = 0
+  }
+  if (tileSrc === 'Bloomed06Plant') {
+    tile06.value = 'Grass06'
+    plant06.value = 0
+  }
+  if (tileSrc === 'Bloomed07Plant') {
+    tile07.value = 'Grass07'
+    plant07.value = 0
+  }
+  if (tileSrc === 'Bloomed08Plant') {
+    tile08.value = 'Grass08'
+    plant08.value = 0
+  }
+  if (tileSrc === 'Bloomed09Plant') {
+    tile09.value = 'Grass09'
+    plant09.value = 0
+  }
 }
 
 const getCursorClass = (tileSrc: string): string => {
@@ -392,7 +429,6 @@ const growPlant = (plant: Signal<number>, tileSrc: string) => {
 export function App() {
   const [bankAccount, loading] = useBankAccount(playerBankAccount);
   if (!loading) {
-    // console.log(`Fetched <BankAccount ${bankAccount.entity_id} />`)
     playerBankAccount.value = {
       entity_id: bankAccount.entity_id,
       player: bankAccount.player,
@@ -403,51 +439,51 @@ export function App() {
   return (
     <div class="container">
       <div class="farm">
-        <img src={frame} class="frame" />
+        <img src={'./' + frame} class="frame" />
         <div class={"tile " + getCursorClass(tile01.value)} onClick={() => setTileSrc(tile01.value)}>
-          <img src={getTileImg(tile01.value)} width="100" />
-          {(tile01.value == 'Dirt01Planted') && <img class="overlay" src={seeds1} width="100" />}
-          {(tile01.value === 'Bloomed01Plant' || tile01.value == 'Watered01Planted' || tile01.value == 'Dirt01Plant' || tile01.value == 'Watered01Plant') && <img class="overlay plant-offset" src={growPlant(plant01, tile01.value)} width="100" />}
+          <img src={'./' + getTileImg(tile01.value)} width="100" />
+          {(tile01.value == 'Dirt01Planted') && <img class="overlay" src={'./' + seeds1} width="100" />}
+          {(tile01.value === 'Bloomed01Plant' || tile01.value == 'Watered01Planted' || tile01.value == 'Dirt01Plant' || tile01.value == 'Watered01Plant') && <img class="overlay plant-offset" src={'./' + growPlant(plant01, tile01.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile02.value)} onClick={() => setTileSrc(tile02.value)}>
-          <img src={getTileImg(tile02.value)} width="100" />
-          {(tile02.value === 'Dirt02Planted') && <img class="overlay" src={seeds2} width="100" />}
-          {(tile02.value === 'Bloomed02Plant' || tile02.value == 'Watered02Planted' || tile02.value == 'Dirt02Plant' || tile02.value == 'Watered02Plant') && <img class="overlay plant-offset" src={growPlant(plant02, tile02.value)} width="100" />}
+          <img src={'./' + getTileImg(tile02.value)} width="100" />
+          {(tile02.value === 'Dirt02Planted') && <img class="overlay" src={'./' + seeds2} width="100" />}
+          {(tile02.value === 'Bloomed02Plant' || tile02.value == 'Watered02Planted' || tile02.value == 'Dirt02Plant' || tile02.value == 'Watered02Plant') && <img class="overlay plant-offset" src={'./' + growPlant(plant02, tile02.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile03.value)} onClick={() => setTileSrc(tile03.value)}>
-          <img src={getTileImg(tile03.value)} width="100" />
-          {(tile03.value == 'Dirt03Planted') && <img class="overlay" src={seeds3} width="100" />}
-          {(tile03.value === 'Bloomed03Plant' || tile03.value === 'Watered03Planted' || tile03.value == 'Dirt03Plant' || tile03.value == 'Watered03Plant') && <img class="overlay plant-offset" src={growPlant(plant03, tile03.value)} width="100" />}
+          <img src={'./' + getTileImg(tile03.value)} width="100" />
+          {(tile03.value == 'Dirt03Planted') && <img class="overlay" src={'./' + seeds3} width="100" />}
+          {(tile03.value === 'Bloomed03Plant' || tile03.value === 'Watered03Planted' || tile03.value == 'Dirt03Plant' || tile03.value == 'Watered03Plant') && <img class="overlay plant-offset" src={'./' + growPlant(plant03, tile03.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile04.value)} onClick={() => setTileSrc(tile04.value)}>
-          <img src={getTileImg(tile04.value)} width="100" />
-          {(tile04.value == 'Dirt04Planted') && <img class="overlay" src={seeds2} width="100" />}
-          {(tile04.value === 'Bloomed04Plant' || tile04.value == 'Watered04Planted' || tile04.value == 'Dirt04Plant' || tile04.value == 'Watered04Plant') && <img class="overlay plant-offset" src={growPlant(plant04, tile04.value)} width="100" />}
+          <img src={'./' + getTileImg(tile04.value)} width="100" />
+          {(tile04.value == 'Dirt04Planted') && <img class="overlay" src={'./' + seeds2} width="100" />}
+          {(tile04.value === 'Bloomed04Plant' || tile04.value == 'Watered04Planted' || tile04.value == 'Dirt04Plant' || tile04.value == 'Watered04Plant') && <img class="overlay plant-offset" src={'./' + growPlant(plant04, tile04.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile05.value)} onClick={() => setTileSrc(tile05.value)}>
-          <img src={getTileImg(tile05.value)} width="100" />
-          {(tile05.value == 'Dirt05Planted') && <img class="overlay" src={seeds4} width="100" />}
-          {(tile05.value === 'Bloomed05Plant' || tile05.value == 'Watered05Planted' || tile05.value == 'Dirt05Plant' || tile05.value == 'Watered05Plant') && <img class="overlay plant-offset" src={growPlant(plant05, tile05.value)} width="100" />}
+          <img src={'./' + getTileImg(tile05.value)} width="100" />
+          {(tile05.value == 'Dirt05Planted') && <img class="overlay" src={'./' + seeds4} width="100" />}
+          {(tile05.value === 'Bloomed05Plant' || tile05.value == 'Watered05Planted' || tile05.value == 'Dirt05Plant' || tile05.value == 'Watered05Plant') && <img class="overlay plant-offset" src={'./' + growPlant(plant05, tile05.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile06.value)} onClick={() => setTileSrc(tile06.value)}>
-          <img src={getTileImg(tile06.value)} width="100" />
-          {(tile06.value == 'Dirt06Planted') && <img class="overlay" src={seeds1} width="100" />}
-          {(tile06.value === 'Bloomed06Plant' || tile06.value == 'Watered06Planted' || tile06.value == 'Dirt06Plant' || tile06.value == 'Watered06Plant') && <img class="overlay plant-offset" src={growPlant(plant06, tile06.value)} width="100" />}
+          <img src={'./' + getTileImg(tile06.value)} width="100" />
+          {(tile06.value == 'Dirt06Planted') && <img class="overlay" src={'./' + seeds1} width="100" />}
+          {(tile06.value === 'Bloomed06Plant' || tile06.value == 'Watered06Planted' || tile06.value == 'Dirt06Plant' || tile06.value == 'Watered06Plant') && <img class="overlay plant-offset" src={'./' + growPlant(plant06, tile06.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile07.value)} onClick={() => setTileSrc(tile07.value)}>
-          <img src={getTileImg(tile07.value)} width="100" />
-          {(tile07.value == 'Dirt07Planted') && <img class="overlay" src={seeds3} width="100" />}
-          {(tile07.value === 'Bloomed07Plant' || tile07.value == 'Watered07Planted' || tile07.value == 'Dirt07Plant' || tile07.value == 'Watered07Plant') && <img class="overlay plant-offset" src={growPlant(plant07, tile07.value)} width="100" />}
+          <img src={'./' + getTileImg(tile07.value)} width="100" />
+          {(tile07.value == 'Dirt07Planted') && <img class="overlay" src={'./' + seeds3} width="100" />}
+          {(tile07.value === 'Bloomed07Plant' || tile07.value == 'Watered07Planted' || tile07.value == 'Dirt07Plant' || tile07.value == 'Watered07Plant') && <img class="overlay plant-offset" src={'./' + growPlant(plant07, tile07.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile08.value)} onClick={() => setTileSrc(tile08.value)}>
-          <img src={getTileImg(tile08.value)} width="100" />
-          {(tile08.value == 'Dirt08Planted') && <img class="overlay" src={seeds1} width="100" />}
-          {(tile08.value === 'Bloomed08Plant' || tile08.value == 'Watered08Planted' || tile08.value == 'Dirt08Plant' || tile08.value == 'Watered08Plant') && <img class="overlay plant-offset" src={growPlant(plant08, tile08.value)} width="100" />}
+          <img src={'./' + getTileImg(tile08.value)} width="100" />
+          {(tile08.value == 'Dirt08Planted') && <img class="overlay" src={'./' + seeds1} width="100" />}
+          {(tile08.value === 'Bloomed08Plant' || tile08.value == 'Watered08Planted' || tile08.value == 'Dirt08Plant' || tile08.value == 'Watered08Plant') && <img class="overlay plant-offset" src={'./' + growPlant(plant08, tile08.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile09.value)} onClick={() => setTileSrc(tile09.value)}>
-          <img src={getTileImg(tile09.value)} width="100" />
-          {(tile09.value == 'Dirt09Planted') && <img class="overlay" src={seeds4} width="100" />}
-          {(tile09.value === 'Bloomed09Plant' || tile09.value == 'Watered09Planted' || tile09.value == 'Dirt09Plant' || tile09.value == 'Watered09Plant') && <img class="overlay plant-offset" src={growPlant(plant09, tile09.value)} width="100" />}
+          <img src={'./' + getTileImg(tile09.value)} width="100" />
+          {(tile09.value == 'Dirt09Planted') && <img class="overlay" src={'./' + seeds4} width="100" />}
+          {(tile09.value === 'Bloomed09Plant' || tile09.value == 'Watered09Planted' || tile09.value == 'Dirt09Plant' || tile09.value == 'Watered09Plant') && <img class="overlay plant-offset" src={'./' + growPlant(plant09, tile09.value)} width="100" />}
         </div>
         <div class="game-info">
           <p>

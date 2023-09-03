@@ -44,19 +44,19 @@
 
 .hoe {
   cursor:
-    url(/Hoe.png),
+    url(./Hoe.png),
     pointer;
 }
 
 .corn {
   cursor:
-    url(/Corn.png),
+    url(./Corn.png),
     pointer;
 }
 
 .watercan {
   cursor:
-    url(/WaterCan.png),
+    url(./WaterCan.png),
     pointer;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .pick {
-  cursor: url(/Cursor2.png), pointer;
+  cursor: url(./Cursor2.png), pointer;
 }
 
 .game-info {

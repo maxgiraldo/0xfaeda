@@ -64,6 +64,10 @@
   cursor: progress;
 }
 
+.pick {
+  cursor: url(/Cursor2.png), pointer;
+}
+
 .game-info {
   position: fixed;
   background-color: rgba(0,0,0,0.50);

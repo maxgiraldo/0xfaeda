@@ -1,4 +1,4 @@
-import { signal } from '@preact/signals'
+import { signal, Signal } from '@preact/signals'
 import { useBankAccount } from './hooks/useBankAccount'
 
 // TODO: sprite sheet
@@ -37,6 +37,14 @@ const tile08 = signal('Grass08')
 const tile09 = signal('Grass09')
 
 const plant01 = signal(0);
+const plant02 = signal(0);
+const plant03 = signal(0);
+const plant04 = signal(0);
+const plant05 = signal(0);
+const plant06 = signal(0);
+const plant07 = signal(0);
+const plant08 = signal(0);
+const plant09 = signal(0);
 
 const playerBankAccount = signal({
   entity_id: '',
@@ -48,6 +56,7 @@ const isGrass = (tileSrc: string) => ['Grass01', 'Grass02', 'Grass03', 'Grass04'
 const isDirt = (tileSrc: string) => ['Dirt01', 'Dirt02', 'Dirt03', 'Dirt04', 'Dirt05', 'Dirt06', 'Dirt07', 'Dirt08', 'Dirt09'].some((dirt) => dirt == tileSrc)
 const isPlanted = (tileSrc: string) => ['Dirt01Planted', 'Dirt02Planted', 'Dirt03Planted', 'Dirt04Planted', 'Dirt05Planted', 'Dirt06Planted', 'Dirt07Planted', 'Dirt08Planted', 'Dirt09Planted'].some((dirt) => dirt == tileSrc)
 const isGrowing = (tileSrc: string) => ['Dirt01Plant', 'Dirt02Plant', 'Dirt03Plant', 'Dirt04Plant', 'Dirt05Plant', 'Dirt06Plant', 'Dirt07Plant', 'Dirt08Plant', 'Dirt09Plant'].some((dirt) => dirt == tileSrc)
+const isBloomed = (tileSrc: string) => ['Bloomed01Plant', 'Bloomed02Plant', 'Bloomed03Plant', 'Bloomed04Plant', 'Bloomed05Plant', 'Bloomed06Plant', 'Bloomed07Plant', 'Bloomed08Plant', 'Bloomed09Plant'].some((dirt) => dirt == tileSrc)
 
 const getTileImg = (tileSrc: string) => {
   switch (tileSrc) {
@@ -159,6 +168,24 @@ const getTileImg = (tileSrc: string) => {
       return watered00
     case 'Watered09Plant':
       return watered00
+    case 'Bloomed01Plant':
+      return dirt00
+    case 'Bloomed02Plant':
+      return dirt00
+    case 'Bloomed03Plant':
+      return dirt00
+    case 'Bloomed04Plant':
+      return dirt00
+    case 'Bloomed05Plant':
+      return dirt00
+    case 'Bloomed06Plant':
+      return dirt00
+    case 'Bloomed07Plant':
+      return dirt00
+    case 'Bloomed08Plant':
+      return dirt00
+    case 'Bloomed09Plant':
+      return dirt00
     default:
       return grass01
   }
@@ -319,33 +346,53 @@ const getCursorClass = (tileSrc: string): string => {
     return 'watercan'
   }
 
+  if (isBloomed(tileSrc)) {
+    return 'pick'
+  }
+
   return 'progress'
 }
 
-const growPlant = () => {
-  function delay(duration: number) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, duration);
-    });
-  }
+function delay(duration: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, duration);
+  });
+}
+
+const growPlant = (plant: Signal<number>, tileSrc: string) => {
   Promise.resolve()
     .then(() => delay(1000))
-    .then(() => plant01.value = plant01.value + 25)
+    .then(() => {
+      if (plant.value < 100) plant.value = plant.value + 25
+    })
 
-  if (plant01.value == 0) return corn0;
-  if (plant01.value == 25) return corn25;
-  if (plant01.value == 50) return corn50;
-  if (plant01.value == 75) return corn75;
-  if (plant01.value == 100) return corn100;
+  if (plant.value == 25) return corn25
 
-  return corn100;
+  if (plant.value == 0) return corn0
+  if (plant.value == 25) return corn25
+  if (plant.value == 50) return corn50
+  if (plant.value == 75) return corn75
+  if (plant.value == 100) {
+    if (tileSrc === "Watered01Plant" || tileSrc === "Dirt01Plant" || tileSrc === "Watered01Planted") tile01.value = 'Bloomed01Plant'
+    if (tileSrc === "Watered02Plant" || tileSrc === "Dirt02Plant" || tileSrc === "Watered02Planted") tile02.value = 'Bloomed02Plant'
+    if (tileSrc === "Watered03Plant" || tileSrc === "Dirt03Plant" || tileSrc === "Watered03Planted") tile03.value = 'Bloomed03Plant'
+    if (tileSrc === "Watered04Plant" || tileSrc === "Dirt04Plant" || tileSrc === "Watered04Planted") tile04.value = 'Bloomed04Plant'
+    if (tileSrc === "Watered05Plant" || tileSrc === "Dirt05Plant" || tileSrc === "Watered05Planted") tile05.value = 'Bloomed05Plant'
+    if (tileSrc === "Watered06Plant" || tileSrc === "Dirt06Plant" || tileSrc === "Watered06Planted") tile06.value = 'Bloomed06Plant'
+    if (tileSrc === "Watered07Plant" || tileSrc === "Dirt07Plant" || tileSrc === "Watered07Planted") tile07.value = 'Bloomed07Plant'
+    if (tileSrc === "Watered08Plant" || tileSrc === "Dirt08Plant" || tileSrc === "Watered08Planted") tile08.value = 'Bloomed08Plant'
+    if (tileSrc === "Watered09Plant" || tileSrc === "Dirt09Plant" || tileSrc === "Watered09Planted") tile09.value = 'Bloomed09Plant'
+
+    return corn100
+  }
+
+  return corn100
 }
 
 export function App() {
   const [bankAccount, loading] = useBankAccount(playerBankAccount);
   if (!loading) {
     // console.log(`Fetched <BankAccount ${bankAccount.entity_id} />`)
-    console.log(bankAccount)
     playerBankAccount.value = {
       entity_id: bankAccount.entity_id,
       player: bankAccount.player,
@@ -353,56 +400,54 @@ export function App() {
     }
   }
 
-  console.log(playerBankAccount.value)
-
   return (
     <div class="container">
       <div class="farm">
         <img src={frame} class="frame" />
         <div class={"tile " + getCursorClass(tile01.value)} onClick={() => setTileSrc(tile01.value)}>
           <img src={getTileImg(tile01.value)} width="100" />
-          {(tile01.value == 'Dirt01Planted' || tile01.value == 'Watered01Planted') && <img class="overlay" src={seeds1} width="100" />}
-          {(tile01.value == 'Dirt01Plant' || tile01.value == 'Watered01Plant') && <img class="overlay plant-offset" src={growPlant()} width="100" />}
+          {(tile01.value == 'Dirt01Planted') && <img class="overlay" src={seeds1} width="100" />}
+          {(tile01.value === 'Bloomed01Plant' || tile01.value == 'Watered01Planted' || tile01.value == 'Dirt01Plant' || tile01.value == 'Watered01Plant') && <img class="overlay plant-offset" src={growPlant(plant01, tile01.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile02.value)} onClick={() => setTileSrc(tile02.value)}>
           <img src={getTileImg(tile02.value)} width="100" />
-          {(tile02.value == 'Dirt02Planted' || tile02.value == 'Watered02Planted') && <img class="overlay" src={seeds2} width="100" />}
-          {(tile02.value == 'Dirt02Plant' || tile02.value == 'Watered02Plant') && <img class="overlay plant-offset" src={growPlant()} width="100" />}
+          {(tile02.value === 'Dirt02Planted') && <img class="overlay" src={seeds2} width="100" />}
+          {(tile02.value === 'Bloomed02Plant' || tile02.value == 'Watered02Planted' || tile02.value == 'Dirt02Plant' || tile02.value == 'Watered02Plant') && <img class="overlay plant-offset" src={growPlant(plant02, tile02.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile03.value)} onClick={() => setTileSrc(tile03.value)}>
           <img src={getTileImg(tile03.value)} width="100" />
-          {(tile03.value == 'Dirt03Planted' || tile03.value == 'Watered03Planted') && <img class="overlay" src={seeds3} width="100" />}
-          {(tile03.value == 'Dirt03Plant' || tile03.value == 'Watered03Plant') && <img class="overlay plant-offset" src={growPlant()} width="100" />}
+          {(tile03.value == 'Dirt03Planted') && <img class="overlay" src={seeds3} width="100" />}
+          {(tile03.value === 'Bloomed03Plant' || tile03.value === 'Watered03Planted' || tile03.value == 'Dirt03Plant' || tile03.value == 'Watered03Plant') && <img class="overlay plant-offset" src={growPlant(plant03, tile03.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile04.value)} onClick={() => setTileSrc(tile04.value)}>
           <img src={getTileImg(tile04.value)} width="100" />
-          {(tile04.value == 'Dirt04Planted' || tile04.value == 'Watered04Planted') && <img class="overlay" src={seeds2} width="100" />}
-          {(tile04.value == 'Dirt04Plant' || tile04.value == 'Watered04Plant') && <img class="overlay plant-offset" src={growPlant()} width="100" />}
+          {(tile04.value == 'Dirt04Planted') && <img class="overlay" src={seeds2} width="100" />}
+          {(tile04.value === 'Bloomed04Plant' || tile04.value == 'Watered04Planted' || tile04.value == 'Dirt04Plant' || tile04.value == 'Watered04Plant') && <img class="overlay plant-offset" src={growPlant(plant04, tile04.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile05.value)} onClick={() => setTileSrc(tile05.value)}>
           <img src={getTileImg(tile05.value)} width="100" />
-          {(tile05.value == 'Dirt05Planted' || tile05.value == 'Watered05Planted') && <img class="overlay" src={seeds4} width="100" />}
-          {(tile05.value == 'Dirt05Plant' || tile05.value == 'Watered05Plant') && <img class="overlay plant-offset" src={growPlant()} width="100" />}
+          {(tile05.value == 'Dirt05Planted') && <img class="overlay" src={seeds4} width="100" />}
+          {(tile05.value === 'Bloomed05Plant' || tile05.value == 'Watered05Planted' || tile05.value == 'Dirt05Plant' || tile05.value == 'Watered05Plant') && <img class="overlay plant-offset" src={growPlant(plant05, tile05.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile06.value)} onClick={() => setTileSrc(tile06.value)}>
           <img src={getTileImg(tile06.value)} width="100" />
-          {(tile06.value == 'Dirt06Planted' || tile06.value == 'Watered06Planted') && <img class="overlay" src={seeds1} width="100" />}
-          {(tile06.value == 'Dirt06Plant' || tile06.value == 'Watered06Plant') && <img class="overlay plant-offset" src={growPlant()} width="100" />}
+          {(tile06.value == 'Dirt06Planted') && <img class="overlay" src={seeds1} width="100" />}
+          {(tile06.value === 'Bloomed06Plant' || tile06.value == 'Watered06Planted' || tile06.value == 'Dirt06Plant' || tile06.value == 'Watered06Plant') && <img class="overlay plant-offset" src={growPlant(plant06, tile06.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile07.value)} onClick={() => setTileSrc(tile07.value)}>
           <img src={getTileImg(tile07.value)} width="100" />
-          {(tile07.value == 'Dirt07Planted' || tile07.value == 'Watered07Planted') && <img class="overlay" src={seeds3} width="100" />}
-          {(tile07.value == 'Dirt07Plant' || tile07.value == 'Watered07Plant') && <img class="overlay plant-offset" src={growPlant()} width="100" />}
+          {(tile07.value == 'Dirt07Planted') && <img class="overlay" src={seeds3} width="100" />}
+          {(tile07.value === 'Bloomed07Plant' || tile07.value == 'Watered07Planted' || tile07.value == 'Dirt07Plant' || tile07.value == 'Watered07Plant') && <img class="overlay plant-offset" src={growPlant(plant07, tile07.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile08.value)} onClick={() => setTileSrc(tile08.value)}>
           <img src={getTileImg(tile08.value)} width="100" />
-          {(tile08.value == 'Dirt08Planted' || tile08.value == 'Watered08Planted') && <img class="overlay" src={seeds1} width="100" />}
-          {(tile08.value == 'Dirt08Plant' || tile08.value == 'Watered08Plant') && <img class="overlay plant-offset" src={growPlant()} width="100" />}
+          {(tile08.value == 'Dirt08Planted') && <img class="overlay" src={seeds1} width="100" />}
+          {(tile08.value === 'Bloomed08Plant' || tile08.value == 'Watered08Planted' || tile08.value == 'Dirt08Plant' || tile08.value == 'Watered08Plant') && <img class="overlay plant-offset" src={growPlant(plant08, tile08.value)} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile09.value)} onClick={() => setTileSrc(tile09.value)}>
           <img src={getTileImg(tile09.value)} width="100" />
-          {(tile09.value == 'Dirt09Planted' || tile09.value == 'Watered09Planted') && <img class="overlay" src={seeds4} width="100" />}
-          {(tile09.value == 'Dirt09Plant' || tile09.value == 'Watered09Plant') && <img class="overlay plant-offset" src={growPlant()} width="100" />}
+          {(tile09.value == 'Dirt09Planted') && <img class="overlay" src={seeds4} width="100" />}
+          {(tile09.value === 'Bloomed09Plant' || tile09.value == 'Watered09Planted' || tile09.value == 'Dirt09Plant' || tile09.value == 'Watered09Plant') && <img class="overlay plant-offset" src={growPlant(plant09, tile09.value)} width="100" />}
         </div>
         <div class="game-info">
           <p>

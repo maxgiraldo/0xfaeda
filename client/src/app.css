@@ -5,31 +5,52 @@
   margin-right: auto;
 }
 
+.frame {
+  position: absolute;
+  width: 597px;
+  margin: -149px;
+  z-index: -100;
+}
+
+.audioplayer {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
+
 .farm {
   display: grid;
   grid-gap: 0;
-  grid-template-columns: 100px 100px 100px;
+  grid-template-columns: 100px;
   grid-template-rows: auto;
   grid-template-columns: repeat(3, 100px);
+  margin-top: 225px;
 }
 
 .tile {
   display: inline-grid;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
-.grass {
+.seeds {
+  position: absolute;
+}
+
+.hoe {
   cursor:
     url(/Hoe.png),
     pointer;
 }
 
-.soil {
+.corn {
   cursor:
     url(/Corn.png),
     pointer;
 }
 
-.seeded {
+.watercan {
   cursor:
     url(/WaterCan.png),
     pointer;

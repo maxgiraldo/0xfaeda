@@ -1,6 +1,7 @@
 import { signal } from '@preact/signals'
 
 // TODO: sprite sheet
+import frame from '/Frame.png'
 import grass01 from '/Grass01.png'
 import grass02 from '/Grass02.png'
 import grass03 from '/Grass03.png'
@@ -11,33 +12,23 @@ import grass07 from '/Grass07.png'
 import grass08 from '/Grass08.png'
 import grass09 from '/Grass09.png'
 import dirt00 from '/Dirt00.png'
-import dirt01 from '/Dirt01.png'
-import dirt02 from '/Dirt02.png'
-import dirt03 from '/Dirt03.png'
-import dirt04 from '/Dirt04.png'
-import dirt05 from '/Dirt05.png'
-import dirt06 from '/Dirt06.png'
-import dirt07 from '/Dirt07.png'
-import dirt08 from '/Dirt08.png'
-import dirt09 from '/Dirt09.png'
-import dirt10 from '/Dirt10.png'
-import dirt11 from '/Dirt11.png'
-import dirt12 from '/Dirt12.png'
-import dirt13 from '/Dirt13.png'
-import dirt14 from '/Dirt14.png'
-import dirt15 from '/Dirt15.png'
+import seeds1 from '/Seeds01.png'
+import seeds2 from '/Seeds02.png'
+import seeds3 from '/Seeds03.png'
+import seeds4 from '/Seeds04.png'
+import watered00 from '/Watered00.png'
 
 import './app.css'
 
-const tile00 = signal('Grass01')
-const tile01 = signal('Grass02')
-const tile02 = signal('Grass03')
-const tile10 = signal('Grass04')
-const tile11 = signal('Grass05')
-const tile12 = signal('Grass06')
-const tile20 = signal('Grass07')
-const tile21 = signal('Grass08')
-const tile22 = signal('Grass09')
+const tile01 = signal('Grass01')
+const tile02 = signal('Grass02')
+const tile03 = signal('Grass03')
+const tile04 = signal('Grass04')
+const tile05 = signal('Grass05')
+const tile06 = signal('Grass06')
+const tile07 = signal('Grass07')
+const tile08 = signal('Grass08')
+const tile09 = signal('Grass09')
 
 const bankAccount = signal({
   player: null,
@@ -67,38 +58,68 @@ const getTileImg = (tileSrc: string) => {
       return grass08
     case 'Grass09':
       return grass09
-    case 'Dirt00':
-      return dirt00
     case 'Dirt01':
-      return dirt01
+      return dirt00
     case 'Dirt02':
-      return dirt02
+      return dirt00
     case 'Dirt03':
-      return dirt03
+      return dirt00
     case 'Dirt04':
-      return dirt04
+      return dirt00
     case 'Dirt05':
-      return dirt05
+      return dirt00
     case 'Dirt06':
-      return dirt06
+      return dirt00
     case 'Dirt07':
-      return dirt07
+      return dirt00
     case 'Dirt08':
-      return dirt08
+      return dirt00
     case 'Dirt09':
-      return dirt09
-    case 'Dirt10':
-      return dirt10
-    case 'Dirt11':
-    return dirt11
-    case 'Dirt12':
-      return dirt12
-    case 'Dirt13':
-      return dirt13
-    case 'Dirt14':
-      return dirt14
-    case 'Dirt15':
-      return dirt15
+      return dirt00
+    case 'Dirt01Planted':
+      return dirt00
+    case 'Dirt02Planted':
+      return dirt00
+    case 'Dirt03Planted':
+      return dirt00
+    case 'Dirt04Planted':
+      return dirt00
+    case 'Dirt05Planted':
+      return dirt00
+    case 'Dirt06Planted':
+      return dirt00
+    case 'Dirt07Planted':
+      return dirt00
+    case 'Dirt08Planted':
+      return dirt00
+    case 'Dirt09Planted':
+      return dirt00
+    case 'Watered01Planted':
+      return watered00
+    case 'Watered02Planted':
+      return watered00
+    case 'Watered03Planted':
+      return watered00
+    case 'Watered04Planted':
+      return watered00
+    case 'Watered05Planted':
+      return watered00
+    case 'Watered06Planted':
+      return watered00
+    case 'Watered07Planted':
+      return watered00
+    case 'Watered08Planted':
+      return watered00
+    case 'Watered09Planted':
+      return watered00
+    case 'Seeds01':
+      return seeds1
+    case 'Seeds02':
+      return seeds2
+    case 'Seeds03':
+      return seeds3
+    case 'Seeds04':
+      return seeds4
     default:
       return grass01
   }
@@ -106,60 +127,100 @@ const getTileImg = (tileSrc: string) => {
 
 const setTileSrc = (tileSrc: string) => {
   if (tileSrc === 'Grass01') {
-    if (isGrass(tile01.value) && isGrass(tile10.value)) {
-      tile00.value = 'Dirt00'
-    }
-
-    if (isGrass(tile01.value) && isDirt(tile10.value)) {
-      tile00.value = 'Dirt10'
-    }
+    tile01.value = 'Dirt01'
+  }
+  if (tileSrc === 'Grass02') {
+    tile02.value = 'Dirt02'
+  }
+  if (tileSrc === 'Grass03') {
+    tile03.value = 'Dirt03'
+  }
+  if (tileSrc === 'Grass04') {
+    tile04.value = 'Dirt04'
+  }
+  if (tileSrc === 'Grass05') {
+    tile05.value = 'Dirt05'
+  }
+  if (tileSrc === 'Grass06') {
+    tile06.value = 'Dirt06'
+  }
+  if (tileSrc === 'Grass07') {
+    tile07.value = 'Dirt07'
+  }
+  if (tileSrc === 'Grass08') {
+    tile08.value = 'Dirt08'
+  }
+  if (tileSrc === 'Grass09') {
+    tile09.value = 'Dirt09'
   }
 
-  if (tileSrc === 'Grass02' && isGrass(tile00.value) && isGrass(tile02.value) && isGrass(tile11.value)) {
-    tile01.value = 'Dirt00'
+  if (tileSrc === 'Dirt01') {
+    tile01.value = 'Dirt01Planted'
+  }
+  if (tileSrc === 'Dirt02') {
+    tile02.value = 'Dirt02Planted'
+  }
+  if (tileSrc === 'Dirt03') {
+    tile03.value = 'Dirt03Planted'
+  }
+  if (tileSrc === 'Dirt04') {
+    tile04.value = 'Dirt04Planted'
+  }
+  if (tileSrc === 'Dirt05') {
+    tile05.value = 'Dirt05Planted'
+  }
+  if (tileSrc === 'Dirt06') {
+    tile06.value = 'Dirt06Planted'
+  }
+  if (tileSrc === 'Dirt07') {
+    tile07.value = 'Dirt07Planted'
+  }
+  if (tileSrc === 'Dirt08') {
+    tile08.value = 'Dirt08Planted'
+  }
+  if (tileSrc === 'Dirt09') {
+    tile09.value = 'Dirt09Planted'
   }
 
-  if (tileSrc === 'Grass02' && isDirt(tile00.value) && isDirt(tile02.value)) {
-    tile00.value = 'Dirt14'
-    tile01.value = 'Dirt13'
-    tile02.value = 'Dirt15'
+  if (tileSrc === 'Dirt01Planted') {
+    tile01.value = 'Watered01Planted'
   }
-
-  if (tileSrc === 'Grass03' && isGrass(tile01.value) && isGrass(tile12.value)) {
-    tile02.value = 'Dirt00'
+  if (tileSrc === 'Dirt02Planted') {
+    tile02.value = 'Watered02Planted'
   }
-
-  if (tileSrc === 'Grass04' && isGrass(tile00.value) && isGrass(tile11.value) && isGrass(tile20.value)) {
-    tile10.value = 'Dirt00'
+  if (tileSrc === 'Dirt03Planted') {
+    tile03.value = 'Watered03Planted'
   }
-
-  if (tileSrc === 'Grass05' && isGrass(tile01.value) && isGrass(tile10.value) && isGrass(tile12.value) && isGrass(tile21.value)) {
-    tile11.value = 'Dirt00'
+  if (tileSrc === 'Dirt04Planted') {
+    tile04.value = 'Watered04Planted'
   }
-
-  if (tileSrc === 'Grass06' && isGrass(tile02.value) && isGrass(tile22.value) && isGrass(tile11.value)) {
-    tile12.value = 'Dirt00'
+  if (tileSrc === 'Dirt05Planted') {
+    tile05.value = 'Watered05Planted'
   }
-
-  if (tileSrc === 'Grass07' && isGrass(tile21.value) && isGrass(tile10.value)) {
-    tile20.value = 'Dirt00'
+  if (tileSrc === 'Dirt06Planted') {
+    tile06.value = 'Watered06Planted'
   }
-
-  if (tileSrc === 'Grass08' && isGrass(tile11.value) && isGrass(tile22.value) && isGrass(tile20.value)) {
-    tile21.value = 'Dirt00'
+  if (tileSrc === 'Dirt07Planted') {
+    tile07.value = 'Watered07Planted'
   }
-
-  if (tileSrc === 'Grass09' && isGrass(tile21.value) && isGrass(tile12.value)) {
-    tile22.value = 'Dirt00'
+  if (tileSrc === 'Dirt08Planted') {
+    tile08.value = 'Watered08Planted'
+  }
+  if (tileSrc === 'Dirt09Planted') {
+    tile09.value = 'Watered09Planted'
   }
 }
 
 const getCursorClass = (tileSrc: string): string => {
   if (isGrass(tileSrc)) {
-    return 'grass'
+    return 'hoe'
   }
 
-  return 'soil'
+  if (isDirt(tileSrc)) {
+    return 'corn'
+  }
+
+  return 'watercan'
 }
 
 export function App() {
@@ -169,32 +230,42 @@ export function App() {
         <p>Balance: { bankAccount.value.balance }</p>
       </div>
       <div class="farm">
-        <div class={"tile " + getCursorClass(tile00.value)} onClick={() => setTileSrc(tile00.value)}>
-          <img src={getTileImg(tile00.value)} width="100" />
-        </div>
+        <img src={frame} class="frame" />
         <div class={"tile " + getCursorClass(tile01.value)} onClick={() => setTileSrc(tile01.value)}>
           <img src={getTileImg(tile01.value)} width="100" />
+          {(tile01.value == 'Dirt01Planted' || tile01.value == 'Watered01Planted') && <img class="seeds" src={seeds1} width="100" />}
         </div>
         <div class={"tile " + getCursorClass(tile02.value)} onClick={() => setTileSrc(tile02.value)}>
           <img src={getTileImg(tile02.value)} width="100" />
+          {(tile02.value == 'Dirt02Planted' || tile02.value == 'Watered02Planted') && <img class="seeds" src={seeds2} width="100" />}
         </div>
-        <div class={"tile " + getCursorClass(tile10.value)} onClick={() => setTileSrc(tile10.value)}>
-          <img src={getTileImg(tile10.value)} width="100" />
+        <div class={"tile " + getCursorClass(tile03.value)} onClick={() => setTileSrc(tile03.value)}>
+          <img src={getTileImg(tile03.value)} width="100" />
+          {(tile03.value == 'Dirt03Planted' || tile03.value == 'Watered03Planted') && <img class="seeds" src={seeds3} width="100" />}
         </div>
-        <div class={"tile " + getCursorClass(tile11.value)} onClick={() => setTileSrc(tile11.value)}>
-          <img src={getTileImg(tile11.value)} width="100" />
+        <div class={"tile " + getCursorClass(tile04.value)} onClick={() => setTileSrc(tile04.value)}>
+          <img src={getTileImg(tile04.value)} width="100" />
+          {(tile04.value == 'Dirt04Planted' || tile04.value == 'Watered04Planted') && <img class="seeds" src={seeds2} width="100" />}
         </div>
-        <div class={"tile " + getCursorClass(tile12.value)} onClick={() => setTileSrc(tile12.value)}>
-          <img src={getTileImg(tile12.value)} width="100" />
+        <div class={"tile " + getCursorClass(tile05.value)} onClick={() => setTileSrc(tile05.value)}>
+          <img src={getTileImg(tile05.value)} width="100" />
+          {(tile05.value == 'Dirt05Planted' || tile05.value == 'Watered05Planted') && <img class="seeds" src={seeds4} width="100" />}
         </div>
-        <div class={"tile " + getCursorClass(tile20.value)} onClick={() => setTileSrc(tile20.value)}>
-          <img src={getTileImg(tile20.value)} width="100" />
+        <div class={"tile " + getCursorClass(tile06.value)} onClick={() => setTileSrc(tile06.value)}>
+          <img src={getTileImg(tile06.value)} width="100" />
+          {(tile06.value == 'Dirt06Planted' || tile06.value == 'Watered06Planted') && <img class="seeds" src={seeds1} width="100" />}
         </div>
-        <div class={"tile " + getCursorClass(tile21.value)} onClick={() => setTileSrc(tile21.value)}>
-          <img src={getTileImg(tile21.value)} width="100" />
+        <div class={"tile " + getCursorClass(tile07.value)} onClick={() => setTileSrc(tile07.value)}>
+          <img src={getTileImg(tile07.value)} width="100" />
+          {(tile07.value == 'Dirt07Planted' || tile07.value == 'Watered07Planted') && <img class="seeds" src={seeds3} width="100" />}
         </div>
-        <div class={"tile " + getCursorClass(tile22.value)} onClick={() => setTileSrc(tile22.value)}>
-          <img src={getTileImg(tile22.value)} width="100" />
+        <div class={"tile " + getCursorClass(tile08.value)} onClick={() => setTileSrc(tile08.value)}>
+          <img src={getTileImg(tile08.value)} width="100" />
+          {(tile08.value == 'Dirt08Planted' || tile08.value == 'Watered08Planted') && <img class="seeds" src={seeds1} width="100" />}
+        </div>
+        <div class={"tile " + getCursorClass(tile09.value)} onClick={() => setTileSrc(tile09.value)}>
+          <img src={getTileImg(tile09.value)} width="100" />
+          {(tile09.value == 'Dirt09Planted' || tile09.value == 'Watered09Planted') && <img class="seeds" src={seeds4} width="100" />}
         </div>
       </div>
     </div>

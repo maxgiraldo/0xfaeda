@@ -6,6 +6,8 @@
 
 A fully on chain farming game.
 
+[Demo on itch.io](https://maximiliang.itch.io/0xfaeda)
+
 ## Getting Started
 
 **Note: due to time constraints, the client is readonly to Starknet and does not initialize world, seed data, etc, so you have to do that manually via `sozo execute`.**

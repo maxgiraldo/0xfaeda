@@ -24,7 +24,7 @@
   grid-template-columns: 100px;
   grid-template-rows: auto;
   grid-template-columns: repeat(3, 100px);
-  margin-top: 225px;
+  margin-top: 245px;
 }
 
 .tile {
@@ -62,4 +62,18 @@
 
 .progress {
   cursor: progress;
+}
+
+.game-info {
+  position: fixed;
+  background-color: rgba(0,0,0,0.50);
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 3px;
+  color: white;
+  top: 10px;
+}
+
+.game-info > p {
+  margin: 0;
 }

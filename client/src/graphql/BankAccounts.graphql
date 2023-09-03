@@ -1,0 +1,13 @@
+query BankAccounts {
+  bankaccountComponents {
+    edges {
+      node {
+        entity {
+          id
+          keys
+        }
+        balance
+      }
+    }
+  }
+}

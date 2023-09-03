@@ -1,4 +1,5 @@
 import { signal } from '@preact/signals'
+import { useBankAccount } from './hooks/useBankAccount'
 
 // TODO: sprite sheet
 import frame from '/Frame.png'
@@ -37,8 +38,9 @@ const tile09 = signal('Grass09')
 
 const plant01 = signal(0);
 
-const bankAccount = signal({
-  player: null,
+const playerBankAccount = signal({
+  entity_id: '',
+  player: '',
   balance: 0,
 })
 
@@ -321,9 +323,6 @@ const getCursorClass = (tileSrc: string): string => {
 }
 
 const growPlant = () => {
-
-  console.log('growPlant')
-
   function delay(duration: number) {
     return new Promise((resolve) => {
       setTimeout(resolve, duration);
@@ -343,11 +342,21 @@ const growPlant = () => {
 }
 
 export function App() {
+  const [bankAccount, loading] = useBankAccount(playerBankAccount);
+  if (!loading) {
+    // console.log(`Fetched <BankAccount ${bankAccount.entity_id} />`)
+    console.log(bankAccount)
+    playerBankAccount.value = {
+      entity_id: bankAccount.entity_id,
+      player: bankAccount.player,
+      balance: bankAccount.balance
+    }
+  }
+
+  console.log(playerBankAccount.value)
+
   return (
     <div class="container">
-      <div class="center" style="text-align: center">
-        <p>Balance: { bankAccount.value.balance }</p>
-      </div>
       <div class="farm">
         <img src={frame} class="frame" />
         <div class={"tile " + getCursorClass(tile01.value)} onClick={() => setTileSrc(tile01.value)}>
@@ -394,6 +403,12 @@ export function App() {
           <img src={getTileImg(tile09.value)} width="100" />
           {(tile09.value == 'Dirt09Planted' || tile09.value == 'Watered09Planted') && <img class="overlay" src={seeds4} width="100" />}
           {(tile09.value == 'Dirt09Plant' || tile09.value == 'Watered09Plant') && <img class="overlay plant-offset" src={growPlant()} width="100" />}
+        </div>
+        <div class="game-info">
+          <p>
+            Land owner: <strong>{playerBankAccount.value.player ? playerBankAccount.value.player.slice(0, 9) : '?'}</strong>,
+            Bank Account Balance: <strong>{ playerBankAccount.value.balance }</strong>
+          </p>
         </div>
       </div>
     </div>

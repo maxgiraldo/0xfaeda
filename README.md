@@ -34,6 +34,8 @@ To start the client, run:
 
 #### Farm crops
 
+<img width="600" alt="Screenshot 2023-09-03 at 12 45 59 PM" src="https://github.com/maxgiraldo/0xfaeda/assets/4913413/34280d73-de9c-4f1d-ae99-b62b01a9beaa">
+
 Using your initial plot of land, farm crops and fill orders on the marketplace. Try to make as much money as possible.
 
 ### Possible future features

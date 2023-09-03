@@ -8,25 +8,33 @@ A fully on chain farming game.
 
 ## Getting Started
 
-Unfortunately, wasn't able to fully connect the client to engine, i.e. initialize world, seed data, etc, so you'd have to do that manually. I was only able to query Torii RPC server for some data.
+**Note: due to time constraints, the client is readonly to Starknet and does not initialize world, seed data, etc, so you have to do that manually via `sozo execute`.**
 
 ### Client
 
 To start the client, run:
 
-`yarn && yarn dev`
+`cd client && yarn && yarn dev`
 
 ### Engine
 
-1. `sozo auth writer BankAccount initiate`
-1. `sozo auth writer BankAccount marketplace`
-1. `sozo execute initiate_system`
+1. `cd engine`
+2. `katana --disable-fee`
+3. (new terminal) `sozo build && sozo migrate --name test`
+4. (new terminal) `torii`
+5. `sozo auth writer BankAccount initiate`
+6. `sozo auth writer BankAccount marketplace`
+7. `sozo execute initiate_system`
 
 #### Create more orders
+
+Create demand in the market for crops (and soon to be other items). You set the price (e.g. 400) and the quantity (e.g. 5).
 
 `sozo execute create_order --calldata 400,5`
 
 #### Fill orders
+
+As a farmer, you can fill orders for crops and get money in your bank account in return. In the future, you can use money to buy goods, lend to other players to gain interest, etc.
 
 `sozo execute fill_order --calldata 1`
 
@@ -57,3 +65,7 @@ Using your initial plot of land, farm crops and fill orders on the marketplace. 
 - Throw events.
 - Combat.
 - Buy, harvest, and sell livestock.
+
+## Credits
+
+Artwork by Luis Perez, [@millybiscuit_art](https://www.instagram.com/millybiscuit_art/)

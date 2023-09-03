@@ -34,8 +34,12 @@
   left: 0;
 }
 
-.seeds {
+.overlay {
   position: absolute;
+}
+
+.plant-offset {
+  bottom: 45px;
 }
 
 .hoe {
@@ -54,4 +58,8 @@
   cursor:
     url(/WaterCan.png),
     pointer;
+}
+
+.progress {
+  cursor: progress;
 }

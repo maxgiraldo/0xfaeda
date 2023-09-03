@@ -38,6 +38,12 @@ To start the client, run:
 
 Using your initial plot of land, farm crops and fill orders on the marketplace. Try to make as much money as possible.
 
+1. Tap the grass to get started plowing the land.
+2. Tap again to plant corn seeds (more crops coming soon).
+3. Tap again to water the seeds.
+4. Watch your plant grow.
+5. Tap the grown plant to grab it.
+
 ### Possible future features
 
 - Player avatars that move around.

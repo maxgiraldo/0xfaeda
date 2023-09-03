@@ -439,7 +439,7 @@ export function App() {
   return (
     <div class="container">
       <div class="farm">
-        <img src={'./' + frame} class="frame" />
+        <img src={'.' + frame} class="frame" />
         <div class={"tile " + getCursorClass(tile01.value)} onClick={() => setTileSrc(tile01.value)}>
           <img src={'./' + getTileImg(tile01.value)} width="100" />
           {(tile01.value == 'Dirt01Planted') && <img class="overlay" src={'./' + seeds1} width="100" />}

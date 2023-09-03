@@ -24,7 +24,7 @@
   grid-template-columns: 100px;
   grid-template-rows: auto;
   grid-template-columns: repeat(3, 100px);
-  margin-top: 245px;
+  margin-top: 210px;
 }
 
 .tile {
@@ -44,19 +44,19 @@
 
 .hoe {
   cursor:
-    url(./Hoe.png),
+    url(Hoe.png),
     pointer;
 }
 
 .corn {
   cursor:
-    url(./Corn.png),
+    url(Corn.png),
     pointer;
 }
 
 .watercan {
   cursor:
-    url(./WaterCan.png),
+    url(WaterCan.png),
     pointer;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .pick {
-  cursor: url(./Cursor2.png), pointer;
+  cursor: url(Cursor2.png), pointer;
 }
 
 .game-info {
@@ -80,4 +80,19 @@
 
 .game-info > p {
   margin: 0;
+}
+
+.sprite {
+  width: 100px;
+  height: 100px;
+  background-image: url("TillSprite.png");
+  animation-name: sprite;
+  animation-duration: 2s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+}
+
+@keyframes sprite {
+  from { background-position: 0px; }
+  to { background-position: -1200px; }
 }

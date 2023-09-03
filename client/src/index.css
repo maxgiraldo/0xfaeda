@@ -9,12 +9,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  background-image: url("./Clouds.png");
+  background-image: url("Clouds.png");
   background-position: center;
   background-size:cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  cursor: url("./Cursor1.png"), auto;
+  cursor: url("Cursor1.png"), auto;
 }
 
 body {
